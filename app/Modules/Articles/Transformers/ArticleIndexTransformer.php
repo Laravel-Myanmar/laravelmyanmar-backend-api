@@ -8,7 +8,7 @@ use App\Modules\Articles\Models\Article;
 class ArticleIndexTransformer extends TransformerAbstract
 {
     /**
-     * Show All Article
+     * Transform articles to an array
      * @param Article $article
      *
      * @return array
