@@ -7,6 +7,12 @@ use App\Modules\Articles\Models\Article;
 
 class ArticleIndexTransformer extends TransformerAbstract
 {
+    /**
+     * Show All Article
+     * @param Article $article
+     *
+     * @return array
+     */
     public function transform(Article $article)
     {
         return [
