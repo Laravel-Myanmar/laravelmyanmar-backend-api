@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers\Api\Article;
 
-use Illuminate\Http\Request;
+use App\Article;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ArticleApiController extends Controller
 {
     /**
-     * Show all articles
+     * Show all articles.
      *
      * @param Request $request
+     *
      * @return array
      */
-    public function index(Request $request)
+    public function index()
     {
-        return [
-            'data' => [
-                'hello' => 'World'
-            ]
-        ];
+        return Article::all();
+    }
+
+    public function store(Request $request)
+    {
+        $article = Article::create($request->all());
+
+        return response()->json($article, 201);
     }
 }
