@@ -9,6 +9,7 @@ class ArticleIndexTransformer extends TransformerAbstract
 {
     /**
      * Transform articles to an array
+     *
      * @param Article $article
      *
      * @return array
