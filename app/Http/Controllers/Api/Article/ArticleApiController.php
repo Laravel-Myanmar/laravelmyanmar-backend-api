@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api\Article;
 
-use App\Article;
-use App\Http\Controllers\Controller;
+use Spatie\Fractal\Fractal;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Modules\Articles\Models\Article;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use App\Modules\Articles\Transformers\ArticleIndexTransformer;
 
 class ArticleApiController extends Controller
 {
@@ -17,7 +20,15 @@ class ArticleApiController extends Controller
      */
     public function index()
     {
-        return Article::all();
+        $articles = Article::paginate(20);
+
+        $articles = Fractal::create()
+                    ->collection($articles->getCollection())
+                    ->transformWith(new ArticleIndexTransformer())
+                    ->paginateWith(new IlluminatePaginatorAdapter($articles))
+                    ->toArray();
+
+        return response($articles, 200, ['msg' => 'Article index successfully loaded']);
     }
 
     public function store(Request $request)
