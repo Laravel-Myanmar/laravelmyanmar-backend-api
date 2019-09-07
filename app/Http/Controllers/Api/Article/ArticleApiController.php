@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\Article;
 
-use Spatie\Fractal\Fractal;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Modules\Articles\Models\Article;
-use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use App\Modules\Articles\Requests\StoreArticle;
 use App\Modules\Articles\Transformers\ArticleIndexTransformer;
+use App\Modules\Articles\Transformers\ArticleShowTransformer;
+use Illuminate\Http\Request;
+use League\Fractal\Pagination\IlluminatePaginatorAdapter;
+use Spatie\Fractal\Fractal;
 
 class ArticleApiController extends Controller
 {
@@ -16,35 +18,43 @@ class ArticleApiController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function index()
     {
-        $articles = Article::paginate(20);
+        $articles = Article::latest()->paginate(20);
 
         $articles = Fractal::create()
-                    ->collection($articles->getCollection())
-                    ->transformWith(new ArticleIndexTransformer())
-                    ->paginateWith(new IlluminatePaginatorAdapter($articles))
-                    ->toArray();
+            ->collection($articles->getCollection())
+            ->transformWith(new ArticleIndexTransformer())
+            ->paginateWith(new IlluminatePaginatorAdapter($articles))
+            ->toArray()
+        ;
 
         return response($articles, 200, ['msg' => 'Article index successfully loaded']);
     }
 
     /**
-     * Store a new article
+     * Store a new article.
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreArticle $request)
     {
         // Use form request to validate (https://laravel.com/docs/6.0/validation#form-request-validation)
+        $validated = $request->validated();
         // Don't use request all, use request->only
         // Use Fractal to respond the article
-        $article = Article::create($request->all());
+        $article = Article::create($validated);
 
-        return response()->json($article, 201);
+        $article = Fractal::create()
+            ->item($article)
+            ->transformWith(new ArticleShowTransformer())
+            ->toArray()
+        ;
+
+        return response($article, 201, ['msg' => 'Article store successfully loaded']);
     }
 }
