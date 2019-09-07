@@ -16,7 +16,7 @@ class ArticleApiController extends Controller
      *
      * @param Request $request
      *
-     * @return array
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
      */
     public function index()
     {
@@ -31,8 +31,18 @@ class ArticleApiController extends Controller
         return response($articles, 200, ['msg' => 'Article index successfully loaded']);
     }
 
+    /**
+     * Store a new article
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\Response|\Illuminate\Contracts\Routing\ResponseFactory
+     */
     public function store(Request $request)
     {
+        // Use form request to validate (https://laravel.com/docs/6.0/validation#form-request-validation)
+        // Don't use request all, use request->only
+        // Use Fractal to respond the article
         $article = Article::create($request->all());
 
         return response()->json($article, 201);
