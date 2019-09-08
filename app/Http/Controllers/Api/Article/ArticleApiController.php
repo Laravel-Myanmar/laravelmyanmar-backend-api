@@ -95,14 +95,14 @@ class ArticleApiController extends Controller
     }
 
     /**
-     * Delete Article
+     * Delete an Article
      *
      * @param Article $article
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws \Exception
      */
-    public function delete(Article $article)
+    public function destroy(Article $article)
     {
         $article->delete();
 
