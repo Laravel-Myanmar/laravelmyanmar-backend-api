@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api\Article;
 
-use App\Modules\Articles\Requests\UpdateArticle;
 use Spatie\Fractal\Fractal;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Modules\Articles\Models\Article;
 use App\Modules\Articles\Requests\StoreArticle;
+use App\Modules\Articles\Requests\UpdateArticle;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use App\Modules\Articles\Transformers\ArticleShowTransformer;
 use App\Modules\Articles\Transformers\ArticleIndexTransformer;
@@ -54,10 +54,15 @@ class ArticleApiController extends Controller
         return response($article, 201, [ 'msg' => 'Article store successfully loaded' ]);
     }
 
-    public function show($id)
+    /**
+     * Show an article
+     *
+     * @param Article $article
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function show(Article $article)
     {
-        $article = Article::find($id);
-
         $article = Fractal::create()
             ->item($article)
             ->transformWith(new ArticleShowTransformer())
