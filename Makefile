@@ -3,3 +3,6 @@ format_check:
 
 format_fix:
 	@./vendor/bin/phpcbf --standard=tests/phpcs.xml
+
+test:
+	@./vendor/bin/phpunit 

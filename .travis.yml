@@ -1,0 +1,28 @@
+language: php
+
+php:
+  - 7.2
+
+before_script:
+  - composer install --no-interaction
+  - cp .env.example .env.testing
+  - php artisan key:generate
+
+jobs:
+  include:
+    - stage: "Lint Code"
+      script:
+        - make format_check
+    - stage: "Running tests"
+      services:
+        - mysql
+      script:
+        - make test
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+notifications:
+  on_success: never
+  on_failure: always
