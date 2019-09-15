@@ -6,7 +6,7 @@ php:
 before_script:
   - composer install --no-interaction
   - cp .env.example .env.testing
-  - php artisan key:generate
+  - php artisan key:generate --env=testing
 
 jobs:
   include:
