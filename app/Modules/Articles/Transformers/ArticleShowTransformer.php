@@ -14,7 +14,7 @@ class ArticleShowTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform( Article $article )
+    public function transform(Article $article)
     {
         return [
             'id' => (int)$article->id,
