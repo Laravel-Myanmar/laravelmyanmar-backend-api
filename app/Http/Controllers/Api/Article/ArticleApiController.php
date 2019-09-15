@@ -31,7 +31,7 @@ class ArticleApiController extends BaseApiController
             ->paginateWith(new IlluminatePaginatorAdapter($articles))
             ->toArray();
 
-        return $this->respond($articles, 200, 'Article index successfully loaded');
+        return $this->respond($articles, 200, 'Retrieve Articles successfully.');
     }
 
     /**
@@ -51,7 +51,7 @@ class ArticleApiController extends BaseApiController
             ->transformWith(new ArticleShowTransformer())
             ->toArray();
 
-        return $this->respond($article, 201, 'Article store successfully loaded');
+        return $this->respond($article, 201, 'Created Article successfully');
     }
 
     /**
@@ -68,7 +68,7 @@ class ArticleApiController extends BaseApiController
             ->transformWith(new ArticleShowTransformer())
             ->toArray();
 
-        return $this->respond($article, 200, 'Article Show successfully loaded');
+        return $this->respond($article, 200, 'Retrieve Article successfully.');
     }
 
     /**
@@ -91,7 +91,7 @@ class ArticleApiController extends BaseApiController
             ->transformWith(new ArticleShowTransformer())
             ->toArray();
 
-        return $this->respond($article, 200, 'Article Update successfully loaded');
+        return $this->respond($article, 200, 'Updated Article successfully.');
     }
 
     /**
