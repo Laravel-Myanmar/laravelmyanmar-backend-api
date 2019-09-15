@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Api\Article;
 
 use Spatie\Fractal\Fractal;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Modules\Articles\Models\Article;
+use App\Http\Controllers\Api\BaseApiController;
 use App\Modules\Articles\Requests\StoreArticle;
 use App\Modules\Articles\Requests\UpdateArticle;
 use League\Fractal\Pagination\IlluminatePaginatorAdapter;
 use App\Modules\Articles\Transformers\ArticleShowTransformer;
 use App\Modules\Articles\Transformers\ArticleIndexTransformer;
 
-class ArticleApiController extends Controller
+class ArticleApiController extends BaseApiController
 {
     /**
      * Show all articles.
@@ -31,7 +31,7 @@ class ArticleApiController extends Controller
             ->paginateWith(new IlluminatePaginatorAdapter($articles))
             ->toArray();
 
-        return response($articles, 200, [ 'msg' => 'Article index successfully loaded' ]);
+        return $this->respond($articles, 200, 'Article index successfully loaded');
     }
 
     /**
@@ -51,7 +51,7 @@ class ArticleApiController extends Controller
             ->transformWith(new ArticleShowTransformer())
             ->toArray();
 
-        return response($article, 201, [ 'msg' => 'Article store successfully loaded' ]);
+        return $this->respond($article, 201, 'Article store successfully loaded');
     }
 
     /**
@@ -68,7 +68,7 @@ class ArticleApiController extends Controller
             ->transformWith(new ArticleShowTransformer())
             ->toArray();
 
-        return response($article, 200, [ 'msg' => 'Article Show successfully loaded' ]);
+        return $this->respond($article, 200, 'Article Show successfully loaded');
     }
 
     /**
@@ -91,7 +91,7 @@ class ArticleApiController extends Controller
             ->transformWith(new ArticleShowTransformer())
             ->toArray();
 
-        return response($article, 200, [ 'msg' => 'Article Update successfully loaded' ]);
+        return $this->respond($article, 200, 'Article Update successfully loaded');
     }
 
     /**
@@ -106,6 +106,6 @@ class ArticleApiController extends Controller
     {
         $article->delete();
 
-        return response(null, 204, [ 'msg' => 'Article Delete successfully loaded' ]);
+        return $this->respond(null, 204);
     }
 }
