@@ -10,8 +10,12 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "hashids/hashids": "^4.0",
         "laravel/framework": "^6.0",
+        "laravel/helpers": "^1.1",
         "laravel/tinker": "^1.0",
+        "pascaldevink/shortuuid": "^2.1",
+        "ramsey/uuid": "^3.8",
         "spatie/laravel-fractal": "^5.6"
     },
     "require-dev": {

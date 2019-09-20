@@ -17,7 +17,9 @@ class ArticlesTableSeeder extends Seeder
         for ($i = 0; $i < 50; ++$i) {
             Article::create([
                 'title' => $faker->sentence,
-                'body' => $faker->paragraph,
+                'slug' => $faker->slug,
+                'preview' => $faker->text,
+                'description' => $faker->realText,
             ]);
         }
     }

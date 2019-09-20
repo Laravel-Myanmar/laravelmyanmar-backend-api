@@ -19,7 +19,9 @@ class ArticleIndexTransformer extends TransformerAbstract
         return [
             'id' => (int) $article->id,
             'title' => $article->title,
-            'body' => $article->body,
+            'slug' => $article->slug,
+            'preview' => $article->preview,
+            'description' => $article->description,
             'created_at' => $article->created_at->toDateTimeString(),
         ];
     }

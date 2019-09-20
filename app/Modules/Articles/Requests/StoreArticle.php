@@ -15,7 +15,8 @@ class StoreArticle extends FormRequest
     {
         return [
             'title' => 'required|max:255',
-            'body' => 'required|min:10',
+            'preview' => 'required|min:10',
+            'description' => 'required|min:10',
         ];
     }
 }

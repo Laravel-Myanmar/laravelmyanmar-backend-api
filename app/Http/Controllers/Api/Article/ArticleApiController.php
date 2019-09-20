@@ -44,7 +44,11 @@ class ArticleApiController extends BaseApiController
     public function store(StoreArticle $request)
     {
         $validated = $request->validated();
-        $article = Article::create($validated);
+        $article = Article::create([
+            'title' => $request->title,
+            'preview' => $request->preview,
+            'description' => $request->description,
+        ]);
 
         $article = Fractal::create()
             ->item($article)

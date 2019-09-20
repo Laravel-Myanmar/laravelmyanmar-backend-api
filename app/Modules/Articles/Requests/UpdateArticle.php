@@ -15,7 +15,8 @@ class UpdateArticle extends FormRequest
     {
         return [
             'title' => 'max:255',
-            'body' => 'min:10',
+            'preview' => 'min:10',
+            'description' => 'min:10',
         ];
     }
 }
