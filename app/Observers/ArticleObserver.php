@@ -17,5 +17,6 @@ class ArticleObserver
         $article->slug = $slug . "-" . $hashids->encode(1, 2, 3);
     }
     public function updating(Article $article)
-    { }
+    {
+    }
 }
